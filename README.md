@@ -7,3 +7,8 @@ if the host is not alive it will wait and try to ping again at a random interval
 if host is alive it will attempt a net use connection, if this fails it should remove the ip from the list as to not lock out the user
 if the connection is successful, it will check for a list of existing files....this is a dev env thing
 it will then copy over a list of files. keylogger, and start up link.
+
+>git commit -m "Message"
+>git push -u origin HEAD
+>git config --global user.name <username>
+>git config --global user.email <email>
